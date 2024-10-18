@@ -129,7 +129,7 @@ const handleAddToCart = (dish) => {
       />
 
       {/* Cart Section */}
-      <ShoppingCart cartItems={cartItems} onRemoveFromCart={handleRemoveFromCart}  onCheckout={handleCheckout} />
+      <ShoppingCart cartItems={cartItems} onRemoveFromCart={handleUpdateCart}  onCheckout={handleCheckout} />
 
 
       {/* Checkout Form */}
