@@ -3,7 +3,7 @@ import { Button, FoodCard } from "../index";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 
-const DishList = ({ dishes, selectedCategory, onAddToCart }) => {
+const DishList = ({ dishes, selectedCategory, AddToCart }) => {
     const [noOfCards, setNoOfCards] = useState(9);
 
     // const cardRefs = useRef([]);
@@ -39,8 +39,7 @@ const DishList = ({ dishes, selectedCategory, onAddToCart }) => {
         name={item.title} 
         price={item.price} 
         img={item.image} 
-        onAddToCart={onAddToCart}
-        dish={item}
+        onAddToCart={() => AddToCart(item)} 
         />
       </div>
     ))}

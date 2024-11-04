@@ -9,6 +9,7 @@ import Menu from './pages/Menu.jsx'
 import About from './pages/About.jsx'
 import BookNow from './pages/BookNow.jsx'
 import OrderOnline from './pages/OrderOnline.jsx'
+import Checkout from './pages/Checkout.jsx'
 
 const router = createBrowserRouter([
   {
@@ -29,11 +30,15 @@ const router = createBrowserRouter([
       },
       {
         path: "/order-online",
-        element: <OrderOnline />
+        element: <OrderOnline />,
       },
       {
         path: "/book-now",
         element: <BookNow />
+      }, 
+      {
+        path: "/checkout",
+        element: <Checkout />
       }
     ],
   },

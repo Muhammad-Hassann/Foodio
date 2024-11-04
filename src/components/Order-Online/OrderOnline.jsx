@@ -1,7 +1,4 @@
-// OrderOnline.js
-import React, { useState, useRef, useEffect } from 'react';
-import { gsap } from 'gsap';    
-import { useGSAP } from '@gsap/react';
+import React, { useState } from 'react';
 import MenuCategories from './MenuCategories';
 import DishList from './DishList';
 import ShoppingCart from './ShoppingCart';
@@ -9,48 +6,10 @@ import CheckoutForm from './CheckoutForm';
 import fooddata from "../../data/fooddata";
 
 const OrderOnline = () => {
-
-    // const headingRef = useRef(null);
-    // const paraRef = useRef(null);
-  
-    //     useGSAP(() => {
-      
-    //       gsap.fromTo(
-    //         headingRef.current,
-    //         { opacity: 0, x: -100 },
-    //         {
-    //           opacity: 1,
-    //           x: 0,
-    //           duration: 1.5,
-    //           scrollTrigger: {
-    //             trigger:headingRef.current,
-    //             start: 'top 40%',
-    //             end: 'bottom 20%',
-    //           },
-    //         }
-    //       );
-    //     }, []);
-  
-    //     useGSAP(() => {
-      
-    //       gsap.fromTo(
-    //         paraRef.current,
-    //         { opacity: 0, x: 100 },
-    //         {
-    //           opacity: 1,
-    //           x: 0,
-    //           duration: 1.5,
-    //           scrollTrigger: {
-    //             trigger: paraRef.current,
-    //             start: 'top 40%',
-    //             end: 'bottom 20%',
-    //           },
-    //         }
-    //       );
-    //     }, []);
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [cartItems, setCartItems] = useState([]);
   const [checkout, setCheckout] = useState(false);
+  const [cartOpen, setCartOpen] = useState(false);
 
   const categories = ["All", ...new Set(fooddata.map((item) => item.category))];
 
@@ -59,84 +18,103 @@ const OrderOnline = () => {
       ? fooddata
       : fooddata.filter((item) => item.category === selectedCategory);
 
-// Function to handle adding items to the cart
-const handleAddToCart = (dish) => {
+  const handleAddToCart = (dish) => {
     setCartItems((prevItems) => {
-      const existingItem = prevItems.find(item => item.id === dish.id);
+      const existingItem = prevItems.find((item) => item.id === dish.id);
       if (existingItem) {
-        return prevItems.map(item =>
-          item.id === dish.id ? { ...item, quantity: item.quantity + 1 } : item
+        return prevItems.map((item) =>
+          item.id === dish.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
         );
       } else {
         return [...prevItems, { ...dish, quantity: 1 }];
       }
     });
   };
-  
-  // Function to handle updating item quantity in the cart
+
   const handleUpdateCart = (dishId, action) => {
     setCartItems((prevItems) =>
       prevItems
-        .map(item => {
+        .map((item) => {
           if (item.id === dishId) {
             return {
               ...item,
-              quantity: action === 'increase' ? item.quantity + 1 : item.quantity - 1
+              quantity: action === 'increase' ? item.quantity + 1 : item.quantity - 1,
             };
           }
           return item;
         })
-        .filter(item => item.quantity > 0) // Remove items with quantity <= 0
+        .filter((item) => item.quantity > 0) // Remove items with quantity 0
     );
   };
-    
-  
 
   const handleCheckout = (formData) => {
-    // Mock submission of the form data
-    console.log('Order submitted:', formData, cartItems);
-    setCartItems([]);
-    setCheckout(false);
+    // setCartItems([]); 
+    setCartOpen(false)
+    setCheckout(true);
+  };
+
+  const calculateTotal = () => {
+    return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
   return (
+    <>
+    {!checkout &&
     <div className="order-online-page p-8 pt-44 bg-purple">
-      <div className="w-full p-8 md:p-12 lg:p-16 xl:px-56 flex flex-col md:flex-row justify-between items-center">
+      
+      {/* Apply blur to the main content when cart is open */}
+      <div className={`main-content ${cartOpen ? 'blur-sm overflow-hidden' : ''}`}>
+        {/* Category Section */}
+        <MenuCategories 
+          categories={categories} 
+          selectedCategory={selectedCategory} 
+          onSelectCategory={setSelectedCategory} 
+        />
 
-      <div  className="max-w-[450px] md:w-1/2">
-          <h1 className="text-4xl md:text-6xl font-bold font-rubik text-white">
-          Enjoy Our Best Meals Now
-          </h1>
+        {/* Dishes Section */}
+        <DishList 
+          dishes={filterFood} 
+          selectedCategory={selectedCategory} 
+          AddToCart={handleAddToCart} 
+        />
+
+        {cartItems.length > 0 && 
+        <div 
+          className="fixed bottom-0 left-1/2 transform -translate-x-1/2 rounded-t-2xl cursor-pointer flex justify-between items-center bg-yellow p-6 w-[400px]"
+          onClick={() => setCartOpen(true)}
+        >
+          <p className='px-4 p-2 rounded-full bg-black text-white text-xl'>{cartItems.length}</p>
+          <p className='text-xl font-bold '>View Cart</p>
+          <p className='text-xl font-bold '>${calculateTotal().toFixed(2)}</p>
         </div>
-        
-        <div className="max-w-[400px] md:w-1/2 mt-4 md:mt-0 text-white text-justify">
-          <p className="text-lg">
-          Explore our diverse online menu and easily order your favorite dishes with just a few clicks. From juicy burgers to sizzling steaks, customize your meal and enjoy seamless checkout—our chefs are ready to prepare something special for everyone!
-          </p>
-        </div>
-        </div>
+        }
+      </div>
 
-      {/* Menu Categories and Dishes Section */}
-
-      {/* Category Section */}
-      <MenuCategories categories={categories} selectedCategory={selectedCategory} onSelectCategory={setSelectedCategory} />
-
-      {/* Dishes Section */}
-      <DishList 
-      dishes={filterFood} 
-      selectedCategory={selectedCategory} 
-      onAddToCart={handleAddToCart} 
-      />
+      {cartOpen && (
+        <div 
+          className="fixed inset-0 bg-black opacity-50 z-40" 
+          onClick={() => setCartOpen(false)}
+        ></div>
+      )}
 
       {/* Cart Section */}
-      <ShoppingCart cartItems={cartItems} onRemoveFromCart={handleUpdateCart}  onCheckout={handleCheckout} />
-
-
+      <ShoppingCart
+        cartOpen={cartOpen} 
+        setCartOpen={setCartOpen}
+        cartItems={cartItems} 
+        onUpdateCart={handleUpdateCart}  
+        onCheckout={handleCheckout} 
+      />
+    
+    </div>
+}
       {/* Checkout Form */}
       {checkout && (
-        <CheckoutForm onSubmit={handleCheckout} />
+        <CheckoutForm onSubmit={handleCheckout} cartItems={cartItems} setCheckout={setCheckout} setCartItems={setCartItems}/>
       )}
-    </div>
+    </>
   );
 };
 

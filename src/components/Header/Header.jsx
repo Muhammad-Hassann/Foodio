@@ -56,7 +56,7 @@ function Header() {
 
   return (
     <header
-      className={`fixed h-screen md:h-28 left-0 top-0 z-50 md:bg-transparent md:backdrop-blur-sm w-full px-4 gap-4 ${
+      className={`fixed h-screen md:h-28 left-0 top-0 z-40 md:bg-transparent md:backdrop-blur-sm w-full px-4 gap-4 ${
         showHeader ? 'opacity-100' : 'opacity-0'
       } transition-opacity duration-200`}
     >
