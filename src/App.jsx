@@ -26,7 +26,7 @@ function App() {
         <Loader onComplete={() => setIsLoading(false)} />
       ) : (
         <div data-scroll-container>
-          {/* <ScrollToTop /> */}
+          <ScrollToTop />
           <Header />
           <Outlet />
           <Footer />
