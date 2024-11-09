@@ -3,7 +3,7 @@
 **Foodio** is a modern, React-based restaurant ordering website that allows users to explore a wide range of food items, customize orders, and complete purchases online. Built with a user-friendly design and smooth animations, Foodio aims to make online ordering a seamless and enjoyable experience.
 
 ## Live Demo
-[Explore Foodio Live](your-live-link-here)
+[Explore Foodio Live](https://foodio-gamma.vercel.app/)
 
 ## Project Overview
 
