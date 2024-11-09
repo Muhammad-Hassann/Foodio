@@ -4,12 +4,13 @@ import DishList from './DishList';
 import ShoppingCart from './ShoppingCart';
 import CheckoutForm from './CheckoutForm';
 import fooddata from "../../data/fooddata";
+import { useCart } from '../../context/CartContext.jsx';
+import { useNavigate } from 'react-router-dom';
 
 const OrderOnline = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [cartItems, setCartItems] = useState([]);
-  const [checkout, setCheckout] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
+  const navigate = useNavigate();
 
   const categories = ["All", ...new Set(fooddata.map((item) => item.category))];
 
@@ -17,6 +18,8 @@ const OrderOnline = () => {
     selectedCategory === "All"
       ? fooddata
       : fooddata.filter((item) => item.category === selectedCategory);
+
+  const { cartItems, setCartItems } = useCart()   
 
   const handleAddToCart = (dish) => {
     setCartItems((prevItems) => {
@@ -50,9 +53,8 @@ const OrderOnline = () => {
   };
 
   const handleCheckout = (formData) => {
-    // setCartItems([]); 
     setCartOpen(false)
-    setCheckout(true);
+    navigate('/checkout')
   };
 
   const calculateTotal = () => {
@@ -61,11 +63,10 @@ const OrderOnline = () => {
 
   return (
     <>
-    {!checkout &&
     <div className="order-online-page p-8 pt-44 bg-purple">
       
       {/* Apply blur to the main content when cart is open */}
-      <div className={`main-content ${cartOpen ? 'blur-sm overflow-hidden' : ''}`}>
+      <div className={`main-content ${cartOpen ? 'blur-sm overflow-y-hidden' : ''}`}>
         {/* Category Section */}
         <MenuCategories 
           categories={categories} 
@@ -109,11 +110,6 @@ const OrderOnline = () => {
       />
     
     </div>
-}
-      {/* Checkout Form */}
-      {checkout && (
-        <CheckoutForm onSubmit={handleCheckout} cartItems={cartItems} setCheckout={setCheckout} setCartItems={setCartItems}/>
-      )}
     </>
   );
 };

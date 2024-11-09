@@ -1,30 +1,39 @@
-import React, { useEffect, useRef } from 'react';
-import { Header, Footer } from './components'
-import { Outlet } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { Header, Footer } from './components';
+import { Outlet } from 'react-router-dom';
 import usePageLoader from './hooks/usePageLoader';
+import { CartProvider } from './context/CartContext';
 import LocomotiveScroll from 'locomotive-scroll';
-import 'locomotive-scroll/dist/locomotive-scroll.css'
+import 'locomotive-scroll/dist/locomotive-scroll.css';
+import Loader from './components/Loader';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
-  const isLoading = usePageLoader();
+  const [isLoading, setIsLoading] = useState(true); // New loading state
+  const isPageLoading = usePageLoader();
   const locomotive = new LocomotiveScroll()
 
+  useEffect(() => {
+    if (!isPageLoading) {
+      const timeout = setTimeout(() => setIsLoading(false), 2000); 
+      return () => clearTimeout(timeout);
+    }
+  }, [isPageLoading]);
+
   return (
-    <>
-    {isLoading ? (
-      <div className="fixed top-0 left-0 w-full h-screen flex items-center justify-center z-[1000]">
-        {/* Add your loading spinner or any loading animation here */}
-        <h1>Loading...</h1>
-      </div>
-    ) : (
-      <div data-scroll-container >
-      <Header />
-      <Outlet />
-      <Footer />
-    </div>
-    )}
-  </>
-  )
+    <CartProvider>
+      {isLoading ? (
+        <Loader onComplete={() => setIsLoading(false)} />
+      ) : (
+        <div data-scroll-container>
+          {/* <ScrollToTop /> */}
+          <Header />
+          <Outlet />
+          <Footer />
+        </div>
+      )}
+    </CartProvider>
+  );
 }
 
-export default App
+export default App;

@@ -15,7 +15,7 @@ function Foooter() {
       <div className="absolute inset-0 bg-black bg-opacity-90"></div>
 
       <div className="w-full flex flex-col lg:flex-row z-10 px-12">
-        <div className="lg:w-1/3 w-full lg:rounded-l-xl rounded-t-xl h-[400px] p-8 bg-purple">
+        <div className="lg:w-1/3 w-full lg:rounded-l-xl sm:rounded-t-xl h-[430px] md:h-[400px] p-8 bg-purple">
           <Logo className="w-44 " />
           <p className="text-white text-lg font-narrow pt-4 flex items-center">
             <span className="material-icons mr-2">

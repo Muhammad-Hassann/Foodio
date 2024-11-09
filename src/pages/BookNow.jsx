@@ -1,10 +1,11 @@
 import React from 'react'
+import BookNowComponent from '../components/BookNow'
 
 function BookTable() {
   return (
-    <div>
-      
-    </div>
+    <>
+      <BookNowComponent />
+    </>
   )
 }
 

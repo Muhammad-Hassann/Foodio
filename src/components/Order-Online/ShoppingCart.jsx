@@ -38,7 +38,7 @@ const ShoppingCart = ({ cartItems = [], onUpdateCart, onCheckout, cartOpen, setC
   return (
     <>
       {cartOpen && (
-        <div ref={containerRef} className="z-[1000] w-full sm:w-1/2 lg:w-1/4 bg-yellow rounded-l-lg fixed top-0 right-0 p-4 sm:p-6 md:p-8">
+        <div ref={containerRef} className="z-[1000] w-full sm:w-1/2 lg:w-1/4 bg-yellow rounded-l-lg absolute top-0 right-0 p-4 sm:p-6 md:p-8">
           <div className="flex justify-between items-center mb-4 sm:mb-8">
             <h2 className="text-2xl sm:text-3xl font-semibold">Your Cart</h2>
             <button className="text-2xl sm:text-3xl font-bold" onClick={() => setCartOpen(false)}>

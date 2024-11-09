@@ -30,7 +30,7 @@ function OurStory() {
             </h1>
             <div className="flex  gap-8">
               <img
-                src="../../../chefs/restaurant.webp" // Replace with actual image paths
+                src="../../../chefs/restaurant.webp"
                 alt="Restaurant Interior"
                 className="w-[250px] h-[400px] object-cover object-left rounded-lg shadow-lg"
               />

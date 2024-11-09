@@ -3,14 +3,16 @@ import { Button } from '../index'
 import { FaCcMastercard } from "react-icons/fa";
 import { BsCashStack } from "react-icons/bs";
 import { FaArrowLeftLong } from "react-icons/fa6";
+import { useNavigate } from 'react-router-dom';
 
-const CheckoutForm = ({ onSubmit, cartItems, setCheckout, setCartItems }) => {
+const CheckoutForm = ({ onSubmit, cartItems, setCartItems }) => {
   const [formData, setFormData] = useState({
     name: '',
     address: '',
     phone: '',
     paymentMethod: 'cash-on-delivery',
   });
+  const navigate = useNavigate()
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -25,8 +27,7 @@ const CheckoutForm = ({ onSubmit, cartItems, setCheckout, setCartItems }) => {
    if(formData.name !== "" || formData.address !== "" || formData.phone !== ""){
      alert("Your Order is placed!")
      setCartItems([])
-     setCheckout(false)
-
+     navigate('/order-online')
    }
   }
 
@@ -188,7 +189,7 @@ const CheckoutForm = ({ onSubmit, cartItems, setCheckout, setCartItems }) => {
         onClick={handlePlaceOrder}
         />
         </div>
-        <div className='flex' onClick={() => setCheckout(false)}>
+        <div className='flex' onClick={() => navigate('/order-online')}>
         <FaArrowLeftLong className='text-white text-2xl cursor-pointer mt-1 mr-1' /> 
         <p className='text-white cursor-pointer text-xl font-semibold underline' >Continue to add more items </p>
         </div>
