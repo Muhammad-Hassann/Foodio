@@ -71,7 +71,7 @@ function Header() {
 
         {/* Mobile Menu Icon */}
         <div className="lg:hidden flex items-center">
-          <button onClick={handleMenuToggle} className="text-4xl text-yellow">
+          <button onClick={handleMenuToggle} className="z-20 text-4xl text-yellow">
             {menuOpen ? <RxCross2 /> : <IoReorderThree />}
           </button>
         </div>
