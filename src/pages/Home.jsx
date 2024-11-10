@@ -9,7 +9,6 @@ function Home() {
       <Menu />
       <ReserveTable />
       <Carousel />
-      {/* <Gallery /> */}
       <Testimonial />
       <Experts />
     </div>

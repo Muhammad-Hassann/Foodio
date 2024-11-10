@@ -28,7 +28,7 @@ function ReserveTable() {
     }, []);
    return (
     <div className='w-full flex justify-center items-center lg:p-12 p-4 py-12 lg:py-20 bg-yellow'>
-      <div ref={tableRef} className='relative lg:w-3/4 w-full p-8 lg:p-0 lg:h-[350px] h-[600px] bg-cover bg-center bg-[url("../bg-overlay.webp")] rounded-3xl flex flex-col justify-center lg:flex-row gap-4'>
+      <div ref={tableRef} className='relative lg:w-3/4 w-full p-8 lg:p-0 lg:h-[350px] h-[600px] rounded-3xl flex flex-col justify-center lg:flex-row gap-4'>
         <div className="absolute inset-0 bg-purple bg-opacity-90 rounded-3xl"></div>
         <div className='relative lg:w-1/3 w-full z-20 p-4 flex items-center'>
           <h1 className='text-center text-6xl font-bold font-rubik text-white'>

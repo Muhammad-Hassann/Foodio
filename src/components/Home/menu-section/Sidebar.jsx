@@ -4,6 +4,7 @@ import { useGSAP } from '@gsap/react';
 
 function Sidebar({ components, activeComponent, setActiveComponent }) {
   const containerRef = useRef();
+  if (window.innerWidth >= 1024) { 
   useGSAP(() => {
 
     gsap.fromTo(
@@ -21,6 +22,7 @@ function Sidebar({ components, activeComponent, setActiveComponent }) {
       }
     );
   }, []);
+}
   return (
     <div ref={containerRef} className="lg:w-1/4 lg:p-4 w-full flex flex-wrap lg:gap-4 gap-2 justify-center lg:border-r lg:block my-2">
       {components.map((comp, index) => (

@@ -5,6 +5,7 @@ import { useGSAP } from '@gsap/react';
 function InfoCard({ imageSrc, mainTitle, items }) {
 
   const containerRef = useRef();
+  if (window.innerWidth >= 1024) { 
   useGSAP(() => {
 
     gsap.fromTo(
@@ -22,6 +23,7 @@ function InfoCard({ imageSrc, mainTitle, items }) {
       }
     );
   }, []);
+}
 
   return (
     <div ref={containerRef} className="p-6 flex bg-yellow rounded-xl gap-10 flex-col lg:flex-row justify-between">

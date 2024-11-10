@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import MenuCategories from './MenuCategories';
 import DishList from './DishList';
 import ShoppingCart from './ShoppingCart';
-import CheckoutForm from './CheckoutForm';
 import fooddata from "../../data/fooddata";
 import { useCart } from '../../context/CartContext.jsx';
 import { useNavigate } from 'react-router-dom';
@@ -93,12 +92,12 @@ const OrderOnline = () => {
         }
       </div>
 
-      {cartOpen && (
+      {/* {cartOpen && (
         <div 
-          className="fixed inset-0 bg-black opacity-50 z-40" 
+          className="fixed inset-0 bg-black opacity-50 z-40 " 
           onClick={() => setCartOpen(false)}
         ></div>
-      )}
+      )} */}
 
       {/* Cart Section */}
       <ShoppingCart
